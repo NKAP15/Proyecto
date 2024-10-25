@@ -1,0 +1,40 @@
+<div class="row">
+  {{#if notes.length}}
+    <h2 class="text-center text-black">Medicamentos</h2>
+    <table class="table table-bordered mt-4">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Clasificacion</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each notes}}
+          <tr>
+            <td>{{title}}</td>
+            <td>{{description}}</td>
+            <td>
+              <a href="/notes/edit/{{_id}}" class="btn btn-warning btn-sm me-2"><i class="fas fa-edit"></i></a>
+              <form action="/notes/delete/{{_id}}?_method=DELETE" method="POST" style="display:inline;">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
+              </form>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <div class="text-right mb-3 mt-4">
+      <a href="/notes/add" class="btn btn-info">Agregar otro medicamento</a>
+    </div>
+  {{else}}
+    <div class="card mx-auto">
+      <div class="card-body">
+        <h1>Bienvenidos a Farmacia La Pildora {{user.name}}</h1>
+        <p class="lead">Aún no hay medicamento registrado.</p>
+        <a href="/notes/add" class="btn btn-success btn-block">Agregar</a>
+      </div>
+    </div>
+  {{/if}}
+</div>

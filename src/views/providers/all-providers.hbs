@@ -1,0 +1,32 @@
+<div class="row">
+  {{#if providers.length}}
+    <h2 class="text-center text-black">Proveedores</h2>
+    {{#each providers}}
+      <div class="col-md-3 mt-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title d-flex justify-content-between align-items-center">
+              {{name}} <a href="/providers/edit/{{_id}}"><i class="fas fa-edit"></i></a>
+            </h4>
+            <p>Teléfono: {{phone}}</p>
+            <form action="/providers/delete/{{_id}}?_method=DELETE" method="POST">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-danger btn-block btn-sm">Borrar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+    <div class="text-right mb-3 mt-4">
+      <a href="/providers/add" class="btn btn-info">Agregar otro proveedor</a>
+    </div>
+  {{else}}
+    <div class="card mx-auto">
+      <div class="card-body">
+        <h1>Bienvenidos a Farmacia La Píldora {{user.name}}</h1>
+        <p class="lead">Aún no hay proveedores registrados.</p>
+        <a href="/providers/add" class="btn btn-success btn-block">Agregar</a>
+      </div>
+    </div>
+  {{/if}}
+</div>

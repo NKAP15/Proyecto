@@ -1,0 +1,18 @@
+body {
+  background: #dfe7db;
+}
+
+.logo {
+  width: 150px;
+}
+
+.bg-black {
+  background: #000000;
+}
+
+.bg-custom {
+  background-color: #b4d3b2; 
+}
+.bg-cont {
+  background: #7b956d;
+}

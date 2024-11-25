@@ -1,0 +1,69 @@
+<div class="col-md-4 mx-auto">
+  <div class="card">
+    <div class="card-header bg-dark text-center">
+      <h3 class="text-white">Nuevo Cliente</h3>
+    </div>
+    <div class="card-body text-right">
+<form action="/orders/new" method="POST">
+  <!-- Número de Pedido -->
+  <div class="mb-3">
+    <label for="orderNumber">Número de Pedido:</label>
+    <input
+      type="text"
+      name="orderNumber"
+      class="form-control"
+      placeholder="Número de Pedido"
+      required
+      autofocus
+    />
+  </div>
+  <!-- Proveedor -->
+  <div class="mb-3">
+    <label for="provider">Proveedor:</label>
+    <select name="provider" class="form-control" required>
+       <option value="" disabled selected>Seleccione un Proveedor</option>
+      {{#each providers}}
+        <option value="{{this._id}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <!-- Sucursal -->
+  <div class="mb-3">
+    <label for="branch">Sucursal:</label>
+    <select name="branch" class="form-control" required>
+      <option value="" disabled selected>Seleccione una sucursal</option> 
+      {{#each branches}}
+        <option value="{{this._id}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <!-- Producto -->
+  <div class="mb-3 row align-items-center">
+    <div class="col-md-8">
+      <label for="products">Producto:</label>
+      <select name="productId" class="form-control" required>
+        <option value="" disabled selected>Seleccione un medicamento</option>
+        {{#each products}}
+          <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="quantity">Cantidad:</label>
+      <input
+        type="number"
+        name="quantity"
+        class="form-control"
+        placeholder="Cantidad"
+        required
+      />
+    </div>
+  </div>
+  <!-- Botón de Guardar -->
+  <button class="btn btn-primary w-100" type="submit">
+    Guardar Orden
+  </button>
+</form>
+    </div>
+  </div>
+</div>

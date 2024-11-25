@@ -1,5 +1,5 @@
 export const renderIndex = (req, res) => {
-  res.render("index");
+  res.render("auth/signin");
 };
 
 export const renderAbout = (req, res) => {

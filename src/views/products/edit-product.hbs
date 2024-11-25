@@ -1,0 +1,54 @@
+<div class="col-md-4 mx-auto">
+  <div class="card">
+    <div class="card-header text-center">
+      <h3>Editar Medicamento</h3>
+    </div>
+    <div class="card-body">
+      <form action="/products/edit-product/{{product._id}}?_method=PUT" method="POST">
+        <input type="hidden" name="_method" value="PUT" />
+        <div class="mb-3">
+          <label for="name">Nombre:</label>
+          <input
+            type="text"
+            name="name"
+            class="form-control"
+            value="{{product.name}}"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="classification">Clasificación:</label>
+          <select name="classification" class="form-control">
+            <option value="">Selecciona una clasificación</option>
+            <option value="Antibiótico">Antibiótico</option>
+            <option value="Medicamento en refrigeración">Medicamento en refrigeración</option>
+            <option value="Vitaminas/Suplementos">Vitaminas/Suplementos</option>
+            <option value="Medicamento controlado">Medicamento controlado</option>
+            <option value="Medicamento de libre venta">Medicamento de libre venta</option>
+            <option value="Artículos no medicamento - insumos">Artículos no medicamento</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="price">Precio:</label>
+          <input
+            type="number"
+            name="price"
+            class="form-control"
+            value="{{product.price}}"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="expiryDate">Fecha de Caducidad:</label>
+          <input
+            type="date"
+            name="expiryDate"
+            class="form-control"
+            value="{{product.expiryDate}}"
+          />
+        </div>
+        <button class="btn btn-primary w-100" type="submit">
+          Guardar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

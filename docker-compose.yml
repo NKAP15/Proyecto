@@ -1,26 +1,32 @@
-version: "3.9"
-
+version: '3.9'
 services:
-  web:
-    container_name: web
-    image: node
+  mongo-server:
+    image: mongo:latest
+    container_name: mongo-server
     restart: always
-    build: .
     ports:
-      - 4000:4000
-    links:
-      - mongo
+      - 27017:27017
     volumes:
-      - .:/usr/src/app
+      - mongodb_data:/data/db
+    networks:
+      - mongodb_network
+      
+  mongo-client:
+    image: mongo-express:latest
+    container_name: mongo-client
+    restart: always
+    depends_on:
+      - mongo-server
     environment:
-      - MONGODB_URI=mongodb://mongo/tareadb
-      - PORT=4000
-      - NODE_ENV=development
-    command: /bin/sh -c 'npm install && npm run dev'
-  mongo:
-    container_name: database
-    image: mongo
+      - ME_CONFIG_MONGODB_SERVER=mongo-server
+      - ME_CONFIG_BASICAUTH_USERNAME=root
+      - ME_CONFIG_BASICAUTH_PASSWORD=root
+      - ME_CONFIG_MONGODB_PORT=27017
     ports:
-      - "27017:27017"
-    logging:
-      driver: none
+      - 8081:8081
+    networks:
+      - mongodb_network
+volumes:
+  mongodb_data:
+networks:
+  mongodb_network:

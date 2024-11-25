@@ -1,4 +1,3 @@
-// models/Client.js
 import mongoose from "mongoose";
 
 const ClientSchema = new mongoose.Schema(
@@ -16,5 +15,5 @@ const ClientSchema = new mongoose.Schema(
   }
 );
 
-// Crea el modelo Client
+
 export default mongoose.model("Client", ClientSchema);

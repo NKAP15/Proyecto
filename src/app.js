@@ -8,14 +8,16 @@ import passport from "passport";
 import morgan from "morgan";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-
 import { MONGODB_URI, PORT } from "./config.js";
 
 import indexRoutes from "./routes/index.routes.js";
-import notesRoutes from "./routes/notes.routes.js";
+import productsRoutes from "./routes/products.routes.js";
 import userRoutes from "./routes/auth.routes.js";
 import clientsRoutes from "./routes/clients.routes.js"; 
 import providersRoutes from "./routes/providers.routes.js";
+//import receptionRoutes from "./routes/receptions.routes.js";
+import branchRoutes from "./routes/branches.routes.js";
+import ordersRoutes from "./routes/orders.routes.js";
 import "./config/passport.js";
 
 // Initializations
@@ -33,6 +35,7 @@ const hbs = exphbs.create({
   partialsDir: join(app.get("views"), "partials"),
   extname: ".hbs",
 });
+hbs.handlebars.registerHelper('allowProtoPropertiesByDefault', true);
 app.engine(".hbs", hbs.engine);
 app.set("view engine", ".hbs");
 
@@ -52,6 +55,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(express.json());
 
 // Global Variables
 app.use((req, res, next) => {
@@ -65,9 +69,14 @@ app.use((req, res, next) => {
 // routes
 app.use(indexRoutes);
 app.use(userRoutes);
-app.use(notesRoutes);
+app.use(productsRoutes);
 app.use(clientsRoutes);
 app.use(providersRoutes);
+//app.use(receptionRoutes);
+app.use(branchRoutes);
+app.use(ordersRoutes);
+
+
 
 // static files
 app.use(express.static(join(__dirname, "public")));
@@ -82,4 +91,5 @@ app.use((error, req, res, next) => {
     error,
   });
 });
+
 export default app;

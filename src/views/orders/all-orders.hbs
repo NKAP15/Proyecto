@@ -1,0 +1,21 @@
+<h1 class="text-center my-4">Órdenes</h1>
+
+<div class="container">
+  <div class="row">
+    {{#each orders}}
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h5 class="card-title">Orden N° {{this.orderNumber}}</h5>
+          </div>
+          <div class="card-body">
+            <p><strong>Proveedor:</strong> {{this.provider.name}}</p>
+            <p><strong>Sucursal:</strong> {{this.branch.name}}</p>
+             <p><strong>Fecha:</strong>  {{this.createdAtFormatted}}</p>
+            <a href="/orders/{{this._id}}" class="btn btn-primary">Ver Detalles</a>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>

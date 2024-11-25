@@ -1,0 +1,71 @@
+<div class="row mb-4">
+  <div class="col text-center">
+    <h2 class="text-black">Filtrar por Clasificación</h2>
+    <form id="classificationForm" action="" method="GET">
+      <select id="classificationSelect" class="form-select d-inline-block w-auto">
+        <option value="" selected disabled>Seleccione una clasificación</option>
+        <option value="/products">Todos</option> 
+        <option value="/products/classification/Antibiótico">Antibióticos</option>
+        <option value="/products/classification/Medicamento%20en%20refrigeración">Refrigeración</option>
+        <option value="/products/classification/Vitaminas%2FSuplementos">Vitaminas</option>
+        <option value="/products/classification/Medicamento%20controlado">Controlados</option>
+        <option value="/products/classification/Medicamento%20de%20libre%20venta">Libre Venta</option>
+        <option value="/products/classification/Artículos%20no%20medicamento">No Medicamento</option>
+      </select>
+      <button type="button" id="filterButton" class="btn btn-primary ms-2">Filtrar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Mostrar productos -->
+<div class="row">
+  {{#if products.length}}
+    <h2 class="text-center text-black">Medicamentos:{{classification}}</h2>
+    <table class="table table-bordered mt-4">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Clasificación</th>
+          <th>Precio</th>
+          <th>Fecha de Caducidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+          <tr>
+            <td>{{name}}</td>
+            <td>{{classification}}</td>
+            <td>${{price}}</td>
+            <td>{{expiryDateFormatted}}</td>
+            <td>
+              <a href="/products/edit/{{_id}}" class="btn btn-warning btn-sm me-2"><i class="fas fa-edit"></i></a>
+              <form action="/products/delete/{{_id}}?_method=DELETE" method="POST" style="display:inline;">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
+              </form>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+      <div class="text-right mb-3 mt-4">
+    <a href="/products/add" class="btn btn-info">Agregar otro medicamento</a>
+  </div>
+  {{else}}
+<div class="d-flex flex-column align-items-center justify-content-center my-5">
+  <p class="text-center fs-4 text-muted">No hay medicamentos en esta clasificación.</p>
+  <a href="/products" class="btn btn-secondary btn-sm mt-3">Mostrar Todos</a>
+</div>
+  {{/if}}
+</div>
+
+<script>
+  // Manejar el evento de filtro
+  document.getElementById("filterButton").addEventListener("click", function () {
+    const selectedValue = document.getElementById("classificationSelect").value;
+    if (selectedValue) {
+      window.location.href = selectedValue;
+    }
+  });
+</script>

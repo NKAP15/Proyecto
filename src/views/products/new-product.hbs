@@ -1,0 +1,56 @@
+<div class="col-md-4 mx-auto">
+  <div class="card">
+    <div class="card-header bg-dark text-center">
+      <h3 class="text-white">Nuevo Medicamento</h3>
+    </div>
+    <div class="card-body text-right">
+      <form action="/products/new-product" method="POST">
+        <div class="mb-3">
+          <label for="name">Nombre:</label>
+          <input
+            type="text"
+            name="name"
+            class="form-control"
+            placeholder="Nombre"
+            value="{{name}}"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label for="classification">Clasificación:</label>
+          <select name="classification" class="form-control">
+            <option value="">Selecciona una clasificación</option>
+            <option value="Antibiótico">Antibiótico</option>
+            <option value="Medicamento en refrigeración">Medicamento en refrigeración</option>
+            <option value="Vitaminas/Suplementos">Vitaminas/Suplementos</option>
+            <option value="Medicamento controlado">Medicamento controlado</option>
+            <option value="Medicamento de libre venta">Medicamento de libre venta</option>
+            <option value="Artículos no medicamento">Artículos no medicamento</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="price">Precio:</label>
+          <input
+            type="number"
+            name="price"
+            class="form-control"
+            placeholder="Precio"
+            value="{{price}}"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="expiryDate">Fecha de Caducidad:</label>
+          <input
+            type="date"
+            name="expiryDate"
+            class="form-control"
+            value="{{expiryDate}}"
+          />
+        </div>
+        <button class="btn btn-primary w-100" type="submit">
+          Guardar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

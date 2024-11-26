@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-black p-2 bg-cont">
+<nav class="navbar navbar-expand-lg navbar-black p-3 bg-cont">
   <div class="container">
     <a class="navbar-brand" href="/">Farmacia La Pildora</a>
     <button
@@ -13,7 +13,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+       <ul class="navbar-nav ms-auto"> 
         <!-- Si el usuario está logueado, mostrar el menú desplegable con las categorías -->
         {{#if user}}
           <li class="nav-item dropdown">
@@ -29,13 +29,13 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="/products">Productos</a>
-              <a class="dropdown-item" href="/clients">Clientes</a>
-              <a class="dropdown-item" href="/providers">Proveedores</a>
               <a class="dropdown-item" href="/orders">Órdenes</a>
               <a class="dropdown-item" href="/inventory">Inventario</a>
-              <a class="dropdown-item" href="/reception">Recepciones</a>
+              <a class="dropdown-item" href="/receptions">Recepciones</a>
               <a class="dropdown-item" href="/sales">Ventas</a>
-              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/clients">Clientes</a>
+              <a class="dropdown-item" href="/providers">Proveedores</a>
+              <a class="dropdown-item" href="/branches">Sucursales</a>
             </ul>
           </li>
           <a class="nav-link text-primary" href="/menu">Volver al Menú</a>

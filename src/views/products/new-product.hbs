@@ -6,7 +6,7 @@
     <div class="card-body text-right">
       <form action="/products/new-product" method="POST">
         <div class="mb-3">
-          <label for="name">Nombre:</label>
+          <label for="name">Nombre del Medicamento/Producto:</label>
           <input
             type="text"
             name="name"
@@ -28,24 +28,6 @@
             <option value="Artículos no medicamento">Artículos no medicamento</option>
           </select>
         </div>
-        <div class="mb-3">
-          <label for="price">Precio:</label>
-          <input
-            type="number"
-            name="price"
-            class="form-control"
-            placeholder="Precio"
-            value="{{price}}"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="expiryDate">Fecha de Caducidad:</label>
-          <input
-            type="date"
-            name="expiryDate"
-            class="form-control"
-            value="{{expiryDate}}"
-          />
         </div>
         <button class="btn btn-primary w-100" type="submit">
           Guardar

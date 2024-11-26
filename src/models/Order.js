@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-// Crear el esquema para las órdenes
 const orderSchema = new mongoose.Schema({
   orderNumber: {
     type: String,
@@ -28,13 +27,14 @@ const orderSchema = new mongoose.Schema({
       required: true
     }
   }],
+      
   createdAt: {
     type: Date,
     default: Date.now
   }
 });
 
-// Crear el modelo
-const Order = mongoose.model('Order', orderSchema);
 
-export default Order;
+// Crear el modelo
+export default  mongoose.model("Order", orderSchema);
+ 

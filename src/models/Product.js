@@ -18,13 +18,6 @@ const ProductSchema = new mongoose.Schema(
       ],
       required: true,
     },
-    price: {
-      type: Number,
-      required: true,
-    },
-    expiryDate: {
-      type: Date,
-    },
     user: {
       type: String,
       required: true,

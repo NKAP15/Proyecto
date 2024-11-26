@@ -3,7 +3,7 @@ import Provider from "../models/Provider.js";
 import Branch from "../models/Branch.js";
 import Product from "../models/Product.js";
 
-// Renderizar formulario para crear una nueva orden
+//formulario para crear una nueva orden
 export const renderNewOrderForm = async (req, res) => {
   try {
     const providers = await Provider.find().lean();
@@ -16,15 +16,14 @@ export const renderNewOrderForm = async (req, res) => {
   }
 };
 
+//Crear nueva orden
 export const createOrder = async (req, res) => {
   const { orderNumber, provider, branch, productId, quantity } = req.body;
   console.log("Datos recibidos:", { orderNumber, provider, branch, productId, quantity });
   try {
-    // Verifica que el producto y la cantidad se han recibido correctamente
     if (!productId || !quantity) {
       throw new Error("El producto o la cantidad no se han proporcionado correctamente.");
     }
-    // Crear el objeto de producto en el formato esperado
     const newOrder = new Order({
       orderNumber,
       provider,
@@ -45,8 +44,7 @@ export const createOrder = async (req, res) => {
   }
 };
 
-import { format } from 'date-fns';
-
+//mostrar todas las ordenes
 export const renderOrders = async (req, res) => {
   try {
     const orders = await Order.find()
@@ -66,8 +64,8 @@ export const renderOrders = async (req, res) => {
           second: "2-digit", // Segundos
           hour12: false  
         });
-      });
-  
+      order.canReceive = order.status === "Pending"; // Asumiendo que 'status' es el campo que define si está pendiente
+    });
     res.render("orders/all-orders", { orders });
   } catch (err) {
     console.error(err);

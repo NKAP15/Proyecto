@@ -1,5 +1,6 @@
 import express from "express";
 import exphbs from "express-handlebars";
+import Handlebars from "handlebars";
 import session from "express-session";
 import methodOverride from "method-override";
 import flash from "connect-flash";
@@ -9,15 +10,17 @@ import morgan from "morgan";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { MONGODB_URI, PORT } from "./config.js";
+import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
 
 import indexRoutes from "./routes/index.routes.js";
 import productsRoutes from "./routes/products.routes.js";
 import userRoutes from "./routes/auth.routes.js";
 import clientsRoutes from "./routes/clients.routes.js"; 
 import providersRoutes from "./routes/providers.routes.js";
-//import receptionRoutes from "./routes/receptions.routes.js";
 import branchRoutes from "./routes/branches.routes.js";
 import ordersRoutes from "./routes/orders.routes.js";
+import receptionsRoutes from './routes/receptions.routes.js';
+import inventoryRoutes from "./routes/inventory.routes.js"; 
 import "./config/passport.js";
 
 // Initializations
@@ -34,10 +37,17 @@ const hbs = exphbs.create({
   layoutsDir: join(app.get("views"), "layouts"),
   partialsDir: join(app.get("views"), "partials"),
   extname: ".hbs",
+  handlebars: allowInsecurePrototypeAccess(Handlebars),
+
+});
+hbs.handlebars.registerHelper('formatDate', function(date) {
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  return new Date(date).toLocaleDateString('es-MX', options);
 });
 hbs.handlebars.registerHelper('allowProtoPropertiesByDefault', true);
 app.engine(".hbs", hbs.engine);
 app.set("view engine", ".hbs");
+
 
 // middlewares
 app.use(morgan("dev"));
@@ -72,9 +82,10 @@ app.use(userRoutes);
 app.use(productsRoutes);
 app.use(clientsRoutes);
 app.use(providersRoutes);
-//app.use(receptionRoutes);
+app.use(receptionsRoutes);
 app.use(branchRoutes);
 app.use(ordersRoutes);
+app.use(inventoryRoutes);
 
 
 

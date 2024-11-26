@@ -20,15 +20,14 @@
 <!-- Mostrar productos -->
 <div class="row">
   {{#if products.length}}
-    <h2 class="text-center text-black">Medicamentos:{{classification}}</h2>
+    <h2 class="text-center text-black">Medicamentos: {{classification}}</h2>
     <table class="table table-bordered mt-4">
       <thead class="thead-dark">
         <tr>
           <th>Nombre</th>
           <th>Clasificación</th>
-          <th>Precio</th>
-          <th>Fecha de Caducidad</th>
-          <th>Acciones</th>
+          <th>Editar </th>
+          <th>Eliminar </i></th>
         </tr>
       </thead>
       <tbody>
@@ -36,13 +35,17 @@
           <tr>
             <td>{{name}}</td>
             <td>{{classification}}</td>
-            <td>${{price}}</td>
-            <td>{{expiryDateFormatted}}</td>
             <td>
-              <a href="/products/edit/{{_id}}" class="btn btn-warning btn-sm me-2"><i class="fas fa-edit"></i></a>
+              <a href="/products/edit/{{_id}}" class="btn btn-warning btn-md">
+              <i class="fas fa-edit"></i>
+              </a>
+            </td>
+            <td>
               <form action="/products/delete/{{_id}}?_method=DELETE" method="POST" style="display:inline;">
                 <input type="hidden" name="_method" value="DELETE">
-                <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
+                <button type="submit" class="btn btn-danger btn-md">
+                  <i class="fas fa-trash"></i>
+                </button>
               </form>
             </td>
           </tr>

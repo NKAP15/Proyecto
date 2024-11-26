@@ -1,29 +1,37 @@
-<h1 class="text-center mb-4">Detalles de la Orden N° {{order.orderNumber}}</h1>
+<!-- views/orders/order-details.hbs -->
+<h1 class="text-center my-4">Detalles de la Orden</h1>
 <div class="container">
-  <div class="card">
-    <div class="card-header bg-primary text-white">
-      <h3>Información de la Orden</h3>
-    </div>
-    <div class="card-body">
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <p><strong>Proveedor:</strong> {{order.provider.name}}</p>
+  <div class="row">
+    <div class="col-md-4 mx-auto">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <form action="/receptions/confirm/{{order._id}}" method="POST">
+          <h5 class="card-title">Orden N° {{order.orderNumber}}</h5>
         </div>
-        <div class="col-md-6">
+        <div class="card-body">
+          <p><strong>Proveedor:</strong> {{order.provider.name}}</p>
           <p><strong>Sucursal:</strong> {{order.branch.name}}</p>
+          <h5>Producto:</h5>
+          <div>
+            {{#each order.products}}
+              <div class="mb-4">
+                <p><strong>{{this.product.name}}</strong> - Cantidad: {{this.quantity}}</p>
+                <hr>
+                    <div class="form-group mt-3">
+                    <label for="price-{{this.product._id}}">Precio:</label>
+                    <input type="number" class="form-control" id="price-{{this.product._id}}" name="price" step="0.01" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="expirationDate-{{this.product._id}}">Fecha de caducidad:</label>
+                    <input type="date" class="form-control" id="expirationDate-{{this.product._id}}" name="expirationDate" required>
+                  </div>
+                  <button type="submit" class="btn btn-success mt-2">Confirmar Recepción</button>
+                </form>
+              </li>
+            {{/each}}
+          </ul>
         </div>
       </div>
-
-      <h4 class="mt-4">Producto:</h4>
-      <ul class="list-group">
-        {{#each order.products}}
-          <li class="list-group-item">
-            <strong>{{this.product.name}}</strong> - {{this.quantity}} unidades
-          </li>
-        {{/each}}
-      </ul>
-      <div class="mt-4 text-center">
-        <a href="/orders" class="btn btn-secondary">Regresar a todas las órdenes</a>
     </div>
   </div>
 </div>

@@ -3,6 +3,7 @@ import Inventory from "../models/Inventory.js";
 import Product from "../models/Product.js";
 import Sale from "../models/Sale.js";
 import PDFDocument from "pdfkit";
+import Offer from "../models/Offer.js";
 
 
 export const renderSalesForm = async (req, res) => {
@@ -59,7 +60,12 @@ export const createNewSale = async (req, res) => {
       return res.redirect("/sales/new");
     }
 
-    const total = quantity * inventoryItem.price;
+    let total = quantity * inventoryItem.price;
+    const offer = await Offer.findOne({ productId }).lean(); // Buscar oferta para el producto
+    if (offer) {
+      const discount = (total * offer.discount) / 100; // Calcular descuento
+      total -= discount; // Aplicar descuento
+    }
     console.log("Clasificación del producto:", inventoryItem.product.classification);
     console.log("Datos de la venta:", {
       branch,

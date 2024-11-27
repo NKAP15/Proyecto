@@ -9,6 +9,7 @@ import passport from "passport";
 import morgan from "morgan";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
+import dayjs from "dayjs";
 import { MONGODB_URI, PORT } from "./config.js";
 import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
 
@@ -51,6 +52,10 @@ hbs.handlebars.registerHelper('formatDate', function(date) {
 hbs.handlebars.registerHelper('allowProtoPropertiesByDefault', true);
 app.engine(".hbs", hbs.engine);
 app.set("view engine", ".hbs");
+hbs.handlebars.registerHelper('isExpiringSoon', function (expirationDate) {
+  const sixMonthsFromNow = dayjs().add(6, 'month');
+  return dayjs(expirationDate).isBefore(sixMonthsFromNow);
+});
 
 
 // middlewares

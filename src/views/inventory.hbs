@@ -1,6 +1,10 @@
 <div class="container mt-5">
   <h1 class="text-center mb-4">Inventario</h1>
-  <!-- Mostrar el inventario -->
+  <div class="text-center mb-4">
+    <a href="/inventory/expiring-soon" class="btn btn-warning">Ver productos por caducar</a>
+    <a href="/inventory" class="btn btn-primary">Ver todos los productos</a>
+  </div>
+
   {{#if inventory.length}}
     <table class="table table-striped table-bordered table-hover mt-4">
       <thead>
@@ -10,6 +14,7 @@
           <th>Precio</th>
           <th>Sucursal</th>
           <th>Fecha de Caducidad</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -20,6 +25,15 @@
             <td>${{this.price}}</td>
             <td>{{this.branch.name}}</td>
             <td>{{formatDate this.expirationDate}}</td>
+            <td>
+              {{#if (isExpiringSoon this.expirationDate)}}
+              <a href="/offers/new" class="btn btn-success">Poner en oferta</a>
+              <form action="/inventory/delete/{{this._id}}?_method=DELETE" method="POST" style="display:inline;">
+              <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-danger">Regresar a proveedor</button>
+              </form>
+              {{/if}}
+            </td>
           </tr>
         {{/each}}
       </tbody>

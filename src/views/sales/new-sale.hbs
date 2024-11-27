@@ -1,0 +1,96 @@
+<div class="col-md-6 mx-auto">
+  <div class="card">
+    <div class="card-header bg-dark text-white text-center">
+      <h3>Registrar Nueva Venta</h3>
+    </div>
+    <div class="card-body">
+      <form action="/sales/new-sale" method="POST">
+        <div class="mb-3">
+          <label for="branch">Sucursal</label>
+          <select name="branch" id="branch" class="form-control" required>
+             <option value="" disabled selected>Seleccione la sucursal donde se hara la venta</option>
+            {{#each branches}}
+              <option value="{{this._id}}">{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div id="inventory-section" style="display: none;">
+          <label for="productId">Producto</label>
+          <select name="productId" id="productId" class="form-control" required>
+          </select>
+
+        </div>
+        <div class="mb-3">
+          <label for="customerName">Nombre del Cliente:</label>
+          <input type="text" name="customerName" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="quantity">Cantidad:</label>
+          <input type="number" name="quantity" class="form-control" required />
+        </div>
+
+        <div id="controlled-fields" style="display: none;">
+          <h4>Detalles del Paciente</h4>
+          <input type="text" name="patientName" class="form-control mb-2" placeholder="Nombre del Paciente" />
+          <input type="text" name="doctorName" class="form-control mb-2" placeholder="Nombre del Doctor" />
+          <input type="text" name="doctorPhone" class="form-control mb-2" placeholder="Teléfono del Doctor" />
+          <input type="text" name="doctorLicense" class="form-control" placeholder="Cédula del Doctor" />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mt-3">Registrar Venta</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const branchSelect = document.getElementById("branch");
+  const productSelect = document.getElementById("productId");
+  const inventorySection = document.getElementById("inventory-section");
+  const controlledFields = document.getElementById("controlled-fields");
+
+  branchSelect.addEventListener("change", async () => {
+    const branchId = branchSelect.value;
+
+    if (!branchId) {
+      inventorySection.style.display = "none";
+      return;
+    }
+
+    const response = await fetch(`/sales/inventory/${branchId}`);
+    const inventory = await response.json();
+
+    if (inventory.length) {
+      inventorySection.style.display = "block";
+      productSelect.innerHTML = inventory
+        .map(
+          (item) =>
+            `<option value="${item.product._id}">${item.name} - $${item.price} (${item.quantity} disponibles)</option>`
+        )
+        .join("");
+    } else {
+      inventorySection.style.display = "none";
+    }
+  });
+
+productSelect.addEventListener("change", async () => {
+  const productId = productSelect.value;
+  
+  if (!productId) return;
+  
+  const response = await fetch(`/products/${productId}`);
+  const product = await response.json();
+  
+  if (product) {
+    console.log("Producto recibido:", product);
+    if (product.classification === "Medicamento controlado") {
+      controlledFields.style.display = "block";
+    } else {
+      controlledFields.style.display = "none";
+    }
+  } else {
+    console.error("No se pudo obtener la información del producto");
+  }
+});
+</script>

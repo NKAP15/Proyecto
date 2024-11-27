@@ -1,0 +1,46 @@
+<a href="/sales/new" class="btn btn-primary">Agregar Venta</a>
+<h2 class="text-center mb-4">Ventas Registradas</h2>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover mt-sm">
+    <thead>
+      <th>Cliente</th>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Total</th>
+      <th>Fecha de Venta</th>
+      <th>Detalles</th>
+      <th>Acciones</th>
+
+    </tr>
+    </thead>
+    <tbody>
+      {{#each sales}}
+              <td class="customer-name">{{this.customerName}}</td>
+              <td class="product-info">{{this.product.name}} - <strong>${{this.productPrice}}</strong></td>
+              <td class="quantity">{{this.quantity}}</td>
+              <td class="total">${{this.total}}</td>
+              <td class="date">{{formatDate this.date}}</td>
+              <td class="details">
+                {{#if this.patientName}}
+                  <div class="controlled-sale">
+                    <p><strong>Venta controlada</strong></p>
+                    <p><strong>Paciente:</strong> {{this.patientName}}</p>
+                    <p><strong>Doctor:</strong> {{this.doctorName}}</p>
+                    <p><strong>Teléfono:</strong> {{this.doctorPhone}}</p>
+                    <p><strong>Cédula:</strong> {{this.doctorLicense}}</p>
+                  </div>
+                {{else}}
+                  <p>Venta normal</p>
+                {{/if}}
+              </td>
+          </td>
+          <td>
+              <a href="/sales/{{this._id}}/download" class="btn btn-primary">
+                <i class="fas fa-download"></i> Descargar
+              </a>
+            </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

@@ -23,6 +23,8 @@ import ordersRoutes from "./routes/orders.routes.js";
 import receptionsRoutes from './routes/receptions.routes.js';
 import inventoryRoutes from "./routes/inventory.routes.js"; 
 import salesRoutes from "./routes/sales.routes.js";
+import offersRoutes from './routes/offers.routes.js';
+
 import "./config/passport.js";
 
 // Initializations
@@ -89,6 +91,7 @@ app.use(branchRoutes);
 app.use(ordersRoutes);
 app.use(inventoryRoutes);
 app.use(salesRoutes);
+app.use(offersRoutes);
 
 
 

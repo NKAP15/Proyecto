@@ -185,7 +185,7 @@ export const downloadSalePdf = async (req, res) => {
     doc.text(`Fecha: ${new Date(sale.date).toLocaleDateString()}`);
     doc.moveDown();
 
-    // **Tabla de productos**
+    doc.text("Producto Vendido:")
     doc.fontSize(14).text(`${sale.quantity} x ${sale.product.name} - $${productPrice}`);
     doc.moveDown();
 

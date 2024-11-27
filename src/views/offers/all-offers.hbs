@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Listado de Ofertas</h2>
+  {{#if offers.length}}
+              <div class="mb-3 text-end">
+            <a href="/offers/new" class="btn btn-primary">Agregar Nueva Oferta</a>
+            </div>
+  <table class="table table-bordered table-hover">
+    <thead class="table">
+      <tr>
+        <th>Producto</th>
+        <th>Descuento (%)</th>
+        <th>Fecha de Inicio</th>
+        <th>Fecha de Fin</th>
+        <th>Comisión para Vitaminas (%)</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each offers}}
+        <tr>
+          <td>{{this.productId.name}}</td>
+          <td>{{this.discount}}%</td>
+          <td>{{formatDate this.startDate}}</td>
+          <td>{{formatDate this.endDate}}</td>
+          <td>
+            {{#if this.employeeCommission}}
+              {{this.employeeCommission}}%
+            {{else}}
+              No aplica
+            {{/if}}
+          </td>
+          <td>
+            <form action="/offers/delete/{{this._id}}" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+ {{else}}
+    <!-- Mostrar mensaje si no hay ofertas -->
+    <div class="text-center">
+      <p>No hay ofertas disponibles</p>
+       <a href="/offers/new" class="btn btn-primary mt-3">Agregar Nueva Oferta</a>
+    </div>
+  {{/if}}
+</div>

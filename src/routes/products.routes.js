@@ -7,6 +7,7 @@ import {
   updateProduct,
   deleteProduct,
   renderProductsByClassification,
+  getProductById
 } from "../controllers/products.controller.js";
 import { isAuthenticated } from "../helpers/auth.js";
 
@@ -19,5 +20,6 @@ router.get("/products/edit/:id", isAuthenticated, renderEditForm);
 router.put("/products/edit-product/:id", isAuthenticated, updateProduct);
 router.delete("/products/delete/:id", isAuthenticated, deleteProduct);
 router.get("/classification/:classification", renderProductsByClassification);
+router.get("/products/:id", isAuthenticated, getProductById);
 router.get("/products/classification/:classification", isAuthenticated, renderProductsByClassification);
 export default router;

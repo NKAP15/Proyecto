@@ -88,3 +88,16 @@ export const renderProductsByClassification = async (req, res) => {
     res.redirect("/products");
   }
 };
+
+export const getProductById = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id).lean();
+    if (!product) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+    res.json(product);
+  } catch (error) {
+    console.error("Error al obtener el producto:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};

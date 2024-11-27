@@ -12,6 +12,7 @@ import { fileURLToPath } from "url";
 import { MONGODB_URI, PORT } from "./config.js";
 import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
 
+
 import indexRoutes from "./routes/index.routes.js";
 import productsRoutes from "./routes/products.routes.js";
 import userRoutes from "./routes/auth.routes.js";
@@ -21,6 +22,7 @@ import branchRoutes from "./routes/branches.routes.js";
 import ordersRoutes from "./routes/orders.routes.js";
 import receptionsRoutes from './routes/receptions.routes.js';
 import inventoryRoutes from "./routes/inventory.routes.js"; 
+import salesRoutes from "./routes/sales.routes.js";
 import "./config/passport.js";
 
 // Initializations
@@ -86,6 +88,7 @@ app.use(receptionsRoutes);
 app.use(branchRoutes);
 app.use(ordersRoutes);
 app.use(inventoryRoutes);
+app.use(salesRoutes);
 
 
 

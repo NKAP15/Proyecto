@@ -5,16 +5,12 @@ import {
   renderOffers,
   deleteOffer
 } from '../controllers/offers.controller.js';
-
+import { isAuthenticated } from "../helpers/auth.js";
 const router = express.Router();
 
-// Ruta para mostrar el formulario de creación de oferta
-router.get('/offers/new', renderOfferForm);
-// Ruta para crear una nueva oferta
-router.post('/offers/new-offer', createOffer);
-// Ruta para mostrar todas las ofertas
-router.get('/offers', renderOffers);
-// Ruta para eliminar una oferta
-router.post('/offers/delete/:id', deleteOffer);
+router.get('/offers/new', isAuthenticated,renderOfferForm);
+router.post('/offers/new-offer', isAuthenticated,createOffer);
+router.get('/offers',isAuthenticated, renderOffers);
+router.post('/offers/delete/:id', isAuthenticated,deleteOffer);
 
 export default router;

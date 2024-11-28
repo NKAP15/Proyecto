@@ -7,12 +7,13 @@ import {
   renderSales,
   downloadSalePdf,
 } from "../controllers/sales.controller.js";
+import { isAuthenticated } from "../helpers/auth.js";
 
 const router = express.Router();
 
-router.get("/sales/new", renderSalesForm); // Formulario para nueva venta
-router.get("/sales/inventory/:branchId", fetchInventoryByBranch);
-router.post("/sales/new-sale", createNewSale); // Crear nueva venta
-router.get("/sales", renderSales); // Mostrar todas las ventas
-router.get("/sales/:id/download", downloadSalePdf);
+router.get("/sales/new",isAuthenticated, renderSalesForm); // Formulario para nueva venta
+router.get("/sales/inventory/:branchId", isAuthenticated,fetchInventoryByBranch);
+router.post("/sales/new-sale", isAuthenticated,createNewSale); // Crear nueva venta
+router.get("/sales",isAuthenticated, renderSales); // Mostrar todas las ventas
+router.get("/sales/:id/download",isAuthenticated, downloadSalePdf);
 export default router;

@@ -17,7 +17,6 @@ import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access
 import indexRoutes from "./routes/index.routes.js";
 import productsRoutes from "./routes/products.routes.js";
 import userRoutes from "./routes/auth.routes.js";
-import clientsRoutes from "./routes/clients.routes.js"; 
 import providersRoutes from "./routes/providers.routes.js";
 import branchRoutes from "./routes/branches.routes.js";
 import ordersRoutes from "./routes/orders.routes.js";
@@ -71,6 +70,7 @@ app.use(
   
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -89,7 +89,6 @@ app.use((req, res, next) => {
 app.use(indexRoutes);
 app.use(userRoutes);
 app.use(productsRoutes);
-app.use(clientsRoutes);
 app.use(providersRoutes);
 app.use(receptionsRoutes);
 app.use(branchRoutes);

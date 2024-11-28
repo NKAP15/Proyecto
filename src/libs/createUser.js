@@ -6,13 +6,15 @@ export const createAdminUser = async () => {
   if (userFound) return;
 
   const newUser = new User({
-    username: "admin",
+    username: "Admin",
     email: "admin@localhost",
+    password: await new User().encryptPassword("admin"),
+    role: "admin",
   });
 
   newUser.password = await newUser.encryptPassword("admin");
 
   const admin = await newUser.save();
 
-  console.log("Admin user created", admin);
+  console.log("Usuario de administrador creado", admin);
 };

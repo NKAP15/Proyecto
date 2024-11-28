@@ -1,11 +1,10 @@
 <div class="container mt-5">
   <h1 class="text-center mb-4">Inventario</h1>
-  <div class="text-center mb-4">
+  {{#if inventory.length}}
+    <div class="text-center mb-4">
     <a href="/inventory/expiring-soon" class="btn btn-warning">Ver productos por caducar</a>
     <a href="/inventory" class="btn btn-primary">Ver todos los productos</a>
   </div>
-
-  {{#if inventory.length}}
     <table class="table table-striped table-bordered table-hover mt-4">
       <thead>
         <tr>

@@ -115,8 +115,8 @@ export const createNewSale = async (req, res) => {
 export const renderSales = async (req, res) => {
   try {
     const sales = await Sale.find()
-      .populate("branch")
-      .populate("product")
+      .populate("branch","name")
+      .populate("product","name")
       .lean();
 
     // Agregar el precio del inventario a cada venta
@@ -130,14 +130,16 @@ export const renderSales = async (req, res) => {
       // Si se encuentra el inventario, agregar el precio al objeto de la venta
       if (inventoryItem) {
         sale.productPrice = inventoryItem.price;
+      }else {
+        console.log(`No se encontró inventario para el producto ${sale.product._id} en la sucursal ${sale.branch._id}`);
       }
     }
     res.render("sales/all-sales", { sales });
   } catch (error) {
+    console.error("Error al obtener las ventas:", error);
     res.status(500).send("Error al cargar las ventas");
   }
 };
-
 
 export const downloadSalePdf = async (req, res) => {
   try {
@@ -220,3 +222,4 @@ export const downloadSalePdf = async (req, res) => {
     res.status(500).send("Error al generar el PDF");
   }
 };
+

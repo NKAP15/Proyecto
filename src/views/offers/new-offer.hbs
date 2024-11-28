@@ -8,6 +8,7 @@
         <div class="mb-3">
           <label for="product" class="form-label">Producto:</label>
           <select name="productId" id="product" class="form-select" required>
+            <option value="" disabled selected>Seleccione un producto</option>
             {{#each products}}
               <option value="{{this.product._id}}">
                 {{this.product.name}} - ${{this.price}}

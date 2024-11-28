@@ -1,6 +1,6 @@
+<h2 class="text-center text-black">Sucursales</h2>
 <div class="row">
   {{#if branches.length}}
-    <h2 class="text-center text-black">Sucursales</h2>
     {{#each branches}}
       <div class="col-md-3 mt-4">
         <div class="card">
@@ -21,12 +21,9 @@
       <a href="/branches/new" class="btn btn-info">Agregar otra sucursal</a>
     </div>
   {{else}}
-    <div class="card mx-auto">
-      <div class="card-body">
-        <h1>Bienvenidos a Farmacia La Píldora {{user.name}}</h1>
-        <p class="lead">Aún no hay sucursales registradas.</p>
-        <a href="/branches" class="btn btn-success btn-block">Agregar</a>
-      </div>
+    <div class="text-center">
+      <p>Aún no hay sucursales registradas</p>
+      <a href="/branches/new" class="btn btn-primary mt-3">Agregar Sucursal</a>
     </div>
   {{/if}}
 </div>

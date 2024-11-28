@@ -9,11 +9,11 @@ try {
 }
 
 mongoose.connection.on("connected", () => {
-  console.log("Mongoose is connected");
+  console.log("Mongodb esta conectado");
 });
 
 mongoose.connection.on("disconnected", () => {
-  console.log("Mongoose is disconnected");
+  console.log("Mongodb esta desconectado");
 });
 
 

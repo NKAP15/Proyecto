@@ -9,11 +9,11 @@ import {
   renderProductsByClassification,
   getProductById
 } from "../controllers/products.controller.js";
-import { isAuthenticated } from "../helpers/auth.js";
+import { isAuthenticated, isAdmin} from "../helpers/auth.js";
 
 const router = Router();
 
-router.get("/products/add", isAuthenticated, renderProductForm);
+router.get("/products/add", isAuthenticated, isAdmin, renderProductForm);
 router.post("/products/new-product", isAuthenticated, createNewProduct);
 router.get("/products", isAuthenticated, renderProducts);
 router.get("/products/edit/:id", isAuthenticated, renderEditForm);

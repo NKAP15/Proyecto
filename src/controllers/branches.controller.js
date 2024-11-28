@@ -1,31 +1,39 @@
 import Branch from "../models/Branch.js";
 import Order from "../models/Order.js"; 
+import mongoose from "mongoose";
 
 // Mostrar el formulario para crear una sucursal
 export const renderBranchForm = (req, res) => {
   res.render("branches/new-branch");
 };
-
+const sanitizeString = (str) => {
+  // Eliminar caracteres no UTF-8 (non-ASCII)
+  return str.replace(/[^\x00-\x7F]/g, "");
+};
 // Crear una nueva sucursal
 export const createBranch = async (req, res) => {
   const { name, location } = req.body;
   const errors = [];
-  if (!name) {
+  // Sanitizar los datos de entrada
+  const sanitizedName = sanitizeString(name);
+  const sanitizedLocation = sanitizeString(location);
+
+  if (!sanitizedName) {
     errors.push({ text: "Por favor ingrese un nombre para la sucursal." });
   }
-  if (!location) {
+  if (!sanitizedLocation) {
     errors.push({ text: "Por favor ingrese una ubicación." });
   }
 
   if (errors.length > 0) {
     return res.render("branches/new-branch", {
       errors,
-      name,
-      location,
+      name: sanitizedName,
+      location: sanitizedLocation,
     });
   }
 
-  const newBranch = new Branch({ name, location });
+  const newBranch = new Branch({name: sanitizedName, location: sanitizedLocation });
   await newBranch.save();
   req.flash("success_msg", "Sucursal agregada exitosamente");
   res.redirect("/branches");
@@ -80,12 +88,11 @@ export const updateBranch = async (req, res) => {
 // Eliminar una sucursal y quitar la referencia en las órdenes
 export const deleteBranch = async (req, res) => {
   try {
-    // Actualizar las órdenes asociadas para quitar la referencia a la sucursal eliminada
-    await Order.updateMany(
-      { branchId: req.params.id },
-      { $unset: { branchId: "" } }
-    );
-    await Branch.findByIdAndDelete(req.params.id);
+    const branchId = mongoose.Types.ObjectId(req.params.id);
+
+    // Eliminar la sucursal directamente
+    await Branch.findByIdAndDelete(branchId);
+
     req.flash("success_msg", "Sucursal eliminada con éxito");
     res.redirect("/branches");
   } catch (error) {

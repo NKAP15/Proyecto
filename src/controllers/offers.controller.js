@@ -9,7 +9,8 @@ export const createOffer = async (req, res) => {
 
     const product = await Product.findById(productId);
     if (!product) {
-      return res.status(404).json({ message: 'Producto no encontrado' });
+      req.flash('error_msg', 'Producto no encontrado');
+      return res.redirect('/offers');
     }
 
     // Crear oferta
@@ -22,11 +23,11 @@ export const createOffer = async (req, res) => {
     });
 
     await newOffer.save();
-    req.flash('success', 'Oferta creada exitosamente');
+    req.flash('success_msg', 'Oferta creada exitosamente');
     res.redirect('/offers');
-    res.status(201).json({ message: 'Oferta creada exitosamente', offer: newOffer });
   } catch (error) {
-    res.status(500).json({ message: 'Error al crear la oferta', error: error.message });
+    req.flash('error_msg', `Error al crear la oferta: ${error.message}`);
+    return res.redirect('/offers');
   }
 };
 
@@ -39,7 +40,8 @@ export const renderOffers = async (req, res) => {
       // Renderizar la vista de todas las ofertas con los datos obtenidos
       res.render('offers/all-offers', { offers });
     } catch (error) {
-      res.status(500).send('Error al listar las ofertas');
+      req.flash('error_msg', `Error al listar las ofertas: ${error.message}`);
+      return res.redirect('/offers');
     }
   };
 
@@ -51,7 +53,8 @@ export const renderOfferForm = async (req, res) => {
     .populate('product', 'name price');
     res.render('offers/new-offer', { products });
   } catch (error) {
-    res.status(500).json({ message: 'Error al obtener productos del inventario', error: error.message });
+    req.flash('error_msg', `Error al obtener productos del inventario: ${error.message}`);
+    return res.redirect('/offers');
   }
 };
 
@@ -64,9 +67,10 @@ export const deleteOffer = async (req, res) => {
       return res.status(404).send({ message: 'Oferta no encontrada' });
     }
     await Offer.findByIdAndDelete(id);
+    req.flash('success_msg', 'Oferta eliminada exitosamente');
     res.redirect('/offers');
   } catch (error) {
-    console.error('Error al eliminar la oferta:', error);
-    res.status(500).send({ message: 'Error al eliminar la oferta', error: error.message });
+    req.flash('error_msg', `Error al eliminar la oferta: ${error.message}`);
+    return res.redirect('/offers');
   }
 };

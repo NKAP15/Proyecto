@@ -1,4 +1,7 @@
-<div class="row mb-4">
+ <h2 class="text-center text-black">Medicamentos: {{classification}}</h2>
+<div class="row">
+  {{#if products.length}}
+  <div class="row mb-4">
   <div class="col text-center">
     <h2 class="text-black">Filtrar por Clasificación</h2>
     <form id="classificationForm" action="" method="GET">
@@ -16,11 +19,6 @@
     </form>
   </div>
 </div>
-
-<!-- Mostrar productos -->
-<div class="row">
-  {{#if products.length}}
-    <h2 class="text-center text-black">Medicamentos: {{classification}}</h2>
     <table class="table table-bordered mt-4">
       <thead class="thead-dark">
         <tr>
@@ -55,10 +53,12 @@
       <div class="text-right mb-3 mt-4">
     <a href="/products/add" class="btn btn-info">Agregar otro medicamento</a>
   </div>
+
   {{else}}
 <div class="d-flex flex-column align-items-center justify-content-center my-5">
-  <p class="text-center fs-4 text-muted">No hay medicamentos en esta clasificación.</p>
+  <p class="text-center fs-4 text-muted">No hay medicamentos.</p>
   <a href="/products" class="btn btn-secondary btn-sm mt-3">Mostrar Todos</a>
+    <a href="/products/add" class="btn btn-info mt-4">Agregar medicamento</a>
 </div>
   {{/if}}
 </div>

@@ -43,7 +43,7 @@ export const createNewProduct = async (req, res) => {
 
 export const renderProducts = async (req, res) => {
   try {
-    const products = await Product.find({ user: req.user.id })
+    const products = await Product.find()
       .sort({ date: "desc" })
       .lean();
     res.render("products/all-products", { products });

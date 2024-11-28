@@ -13,7 +13,6 @@ import dayjs from "dayjs";
 import { MONGODB_URI, PORT } from "./config.js";
 import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
 
-
 import indexRoutes from "./routes/index.routes.js";
 import productsRoutes from "./routes/products.routes.js";
 import userRoutes from "./routes/auth.routes.js";

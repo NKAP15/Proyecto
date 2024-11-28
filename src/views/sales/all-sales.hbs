@@ -1,4 +1,5 @@
 <a href="/sales/new" class="btn btn-primary">Agregar Venta</a>
+{{#if sales.length}}
 <h2 class="text-center mb-4">Ventas Registradas</h2>
 <div class="table-responsive">
   <table class="table table-bordered table-hover mt-sm">
@@ -44,3 +45,6 @@
     </tbody>
   </table>
 </div>
+{{else}}
+  <p class="text-center">Aun no se realizan ventas.</p>
+{{/if}}

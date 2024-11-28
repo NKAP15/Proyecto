@@ -2,6 +2,7 @@ import Order from '../models/Order.js';
 import Reception from '../models/Reception.js';
 import Inventory from '../models/Inventory.js';
 
+
 //Confirmar orden
 export const confirmReceptionFromOrder = async (req, res) => {
   try {
@@ -16,8 +17,9 @@ export const confirmReceptionFromOrder = async (req, res) => {
         console.error(`Orden con ID ${orderId} no encontrada.`);
         return res.status(404).json({ message: `Orden con ID ${orderId} no encontrada.` });
       }
-  
-      console.log('Orden encontrada:', order);
+    
+      console.log('Orden encontrada:', JSON.stringify(order, null, 2)); // Esto imprimirá la orden completa
+     console.log('Detalles de los productos:', JSON.stringify(order.products, null, 2));
   
       if (!order.branch) {
         console.error('La orden no tiene sucursal asignada.');
